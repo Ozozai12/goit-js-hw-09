@@ -85,6 +85,7 @@ function convertMs(time) {
         hoursEl.textContent = '00';
         minutesEl.textContent = '00';
         secondsEl.textContent = '00';
+        Notiflix.Report.success('Час настав!', '', 'Добре');
         return;
     }
 
