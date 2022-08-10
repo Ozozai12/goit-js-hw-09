@@ -54,7 +54,11 @@ function convertMs(time) {
         hoursEl.textContent = '00';
         minutesEl.textContent = '00';
         secondsEl.textContent = '00';
-        window.alert('Оберіть дату в майбутньому!');
+        Notiflix.Report.failure(
+          'Оберіть дату в майбутньому!',
+          '',
+          'Добре'
+        );
         
         return;
     }
