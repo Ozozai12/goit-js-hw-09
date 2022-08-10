@@ -9,6 +9,11 @@ const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
 const minutesEl = document.querySelector('[data-minutes]');
 const secondsEl = document.querySelector('[data-seconds]');
+const calendarThumb = document.querySelector('.calendar');
+const timerThumb = document.querySelector('.timer');
+const fieldThumbs = document.querySelectorAll('.field');
+const fieldSpans = document.querySelectorAll('.value');
+
 
 let countActive = false;
 let timerStartValue;
@@ -99,4 +104,19 @@ function addLeadingZero(value) {
     return String(value).padStart(2, '0');
 }
 
+calendarThumb.style.display = 'flex';
+calendarThumb.style.justifyContent = 'center';
+datePicker.style.marginRight = '15px';
+timerThumb.style.display = 'flex';
+timerThumb.style.justifyContent = 'space-evenly';
+timerThumb.style.marginTop = '40px';
+timerThumb.style.fontSize = '40px';
+fieldThumbs.forEach((elem) => {
+    elem.style.display = 'flex';
+    elem.style.flexDirection = 'column';
+})
+fieldSpans.forEach(elem => {
+  elem.style.display = 'flex';
+  elem.style.justifyContent = 'center';
+});
 
