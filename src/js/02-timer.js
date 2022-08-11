@@ -15,6 +15,7 @@ const fieldSpans = document.querySelectorAll('.value');
 
 let countActive = false;
 let timerValue = 0;
+let deltaTime;
 
 const flatOptions = {
   enableTime: true,
@@ -22,7 +23,8 @@ const flatOptions = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const deltaTime = selectedDates[0] - Date.now();
+    deltaTime = 0;
+    deltaTime = selectedDates[0] - Date.now();
 
     compareDate(deltaTime);
   },
@@ -48,19 +50,12 @@ function convertMs(time) {
   return { days, hours, minutes, seconds };
 }
 
-
 function compareDate(time) {
   if (time > 0) {
     startBtn.removeAttribute('disabled');
     convertMs(time);
     startBtn.addEventListener('click', onStartBtnClick);
-    function onStartBtnClick() {
-      if (countActive) {
-        return;
-      }
-      countActive = true;
-      countdown(time);
-    }
+    
   }
 
   if (time < 0 && !countActive) {
@@ -76,24 +71,28 @@ function compareDate(time) {
   }
 }
 
+
+function onStartBtnClick() {
+  if (countActive) {
+    return;
+  }
+  countActive = true;
+  countdown(deltaTime);
+}
+
 function countdown(time) {
   timerValue = time;
   const intervalId = setInterval(() => {
     timerValue -= 1000;
-      convertMs(timerValue);
-      if (timerValue < 1000) {
-        clearInterval(intervalId);
-
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
-        Notiflix.Report.success('Час настав!', '', 'Добре');
-        return;
-      }
+    convertMs(timerValue);
+    if (timerValue < 1000) {
+      clearInterval(intervalId);
+      startBtn.removeEventListener('click', onStartBtnClick);
+      countActive = false;
+      Notiflix.Report.success('Час настав!', '', 'Добре');
+      return;
+    }
   }, 1000);
-    
-  
 }
 
 function addLeadingZero(value) {
