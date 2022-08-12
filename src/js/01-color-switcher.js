@@ -18,7 +18,7 @@ function onStartBtnClick() {
     colorActive = true;
     stopBtn.removeAttribute('disabled');
     startBtn.setAttribute('disabled', 1);
-    timerId = setInterval(() => {
+    const timerId = setInterval(() => {
         document.body.style.backgroundColor = `${getRandomHexColor()}`;
     }, 1000)
     stopBtn.addEventListener('click', onStopBtnClick);
