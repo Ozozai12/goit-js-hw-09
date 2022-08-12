@@ -3,7 +3,7 @@ const stopBtn = document.querySelector('[data-stop]');
 const thumb = document.querySelector('.thumb');
 
 startBtn.addEventListener('click', onStartBtnClick);
-stopBtn.addEventListener('click', onStopBtnClick);
+
 
 let colorActive = false;
 
@@ -21,14 +21,16 @@ function onStartBtnClick() {
     timerId = setInterval(() => {
         document.body.style.backgroundColor = `${getRandomHexColor()}`;
     }, 1000)
+    stopBtn.addEventListener('click', onStopBtnClick);
+    function onStopBtnClick() {
+      clearInterval(timerId);
+      colorActive = false;
+      startBtn.removeAttribute('disabled');
+      stopBtn.setAttribute('disabled', 1);
+    }
 }
 
-function onStopBtnClick() {
-    clearInterval(timerId);
-    colorActive = false;
-    startBtn.removeAttribute('disabled');
-    stopBtn.setAttribute('disabled', 1);
-}
+
 
 thumb.style.display = 'flex';
 thumb.style.justifyContent = 'center';
